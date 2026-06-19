@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic"
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const article = await getArticleBySlug(slug)
-  if (!article) return { title: "Noticia no encontrada" }
+  if (!article) return { title: "News not found" }
 
   const truncate = (str: string, length: number) => str.length > length ? str.substring(0, length) + "..." : str
 
@@ -63,7 +63,7 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
             href="/news"
             className="inline-flex items-center gap-2 text-white/40 hover:text-white/70 text-sm mb-8 transition"
           >
-            <ArrowLeft size={16} /> Volver a Noticias
+            <ArrowLeft size={16} /> Back to News
           </Link>
 
           {article.image_url && (

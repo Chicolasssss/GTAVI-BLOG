@@ -5,8 +5,8 @@ import { Clock, ArrowRight } from "lucide-react"
 export const revalidate = 60 // Revalidate every minute
 
 export const metadata = {
-  title: "Noticias y Novedades de GTA VI — Leonida Hub",
-  description: "Últimas noticias, filtraciones y actualizaciones sobre Grand Theft Auto VI y su ecosistema.",
+  title: "News & Updates — Leonida Hub",
+  description: "Latest news, leaks and official updates about the Grand Theft Auto VI universe.",
 }
 
 export default async function NewsFeedPage() {
@@ -20,13 +20,13 @@ export default async function NewsFeedPage() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff007f] to-[#00ffff]">LEONIDA</span> NEWS
           </h1>
           <p className="text-white/60 text-lg max-w-2xl">
-            Toda la actualidad, filtraciones y desarrollo oficial del universo de GTA VI.
+            All the latest news, leaks, and official development updates from the GTA VI universe.
           </p>
         </div>
 
         {articles.length === 0 ? (
           <div className="glass rounded-3xl p-20 text-center border-dashed">
-            <p className="text-white/40 text-xl font-medium">Próximamente nuevas noticias...</p>
+            <p className="text-white/40 text-xl font-medium">Coming soon...</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -50,7 +50,7 @@ export default async function NewsFeedPage() {
                   )}
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 rounded-full bg-black/80 backdrop-blur-md text-white text-xs font-bold uppercase tracking-widest border border-white/10">
-                      Noticia
+                      News
                     </span>
                   </div>
                 </div>
@@ -66,7 +66,7 @@ export default async function NewsFeedPage() {
                   </h2>
 
                   <div className="mt-auto flex items-center gap-2 text-[#ff007f] text-sm font-bold uppercase tracking-wider group-hover:gap-3 transition-all">
-                    Leer más <ArrowRight size={16} />
+                    Read more <ArrowRight size={16} />
                   </div>
                 </div>
               </Link>
