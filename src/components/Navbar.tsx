@@ -8,7 +8,7 @@ const navLinks = [
   { href: "/news", label: "News", icon: Newspaper },
   { href: "/foro", label: "Forum", icon: MessageSquare },
   { href: "/scripts", label: "Scripts", icon: Code2 },
-  { href: "/servidores", label: "Servers", icon: Shield },
+  { href: "/servers", label: "Servers", icon: Shield },
   { href: "/radar", label: "Radar", icon: Radio },
   { href: "/db", label: "Wiki", icon: Database },
   { href: "/timeline", label: "Timeline", icon: Timer },

@@ -104,7 +104,7 @@ export default function SixMHub() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a 
-                href="/servidores"
+                href="/servers"
                 className="bg-white text-black font-bold px-8 py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#00ffff] transition-colors w-full sm:w-auto"
               >
                 Go to the Official Server Registry <ArrowRight size={18} />
