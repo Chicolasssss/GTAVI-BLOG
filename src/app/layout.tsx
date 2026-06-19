@@ -94,11 +94,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className="min-h-screen bg-background text-foreground antialiased">
+      <body className="min-h-screen bg-background text-foreground antialiased flex flex-col">
         <Providers>
           <ParticlesBg />
           <Navbar />
-          <main className="relative z-10">{children}</main>
+          <main className="relative z-10 flex-grow">{children}</main>
+          
+          <footer className="relative z-10 border-t border-white/5 bg-black/40 backdrop-blur-md mt-20">
+            <div className="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+              <p className="text-white/40 text-xs text-center md:text-left max-w-2xl">
+                Leonida Hub is an unofficial fan site. We are not affiliated with, associated with, authorized, endorsed by, or in any way officially connected with Rockstar Games, Take-Two Interactive, or any of its subsidiaries or its affiliates. The official Rockstar Games website can be found at rockstargames.com.
+              </p>
+              <div className="flex items-center gap-4 text-xs font-medium text-white/50">
+                <a href="#" className="hover:text-[#ff007f] transition-colors">Privacy Policy</a>
+                <a href="#" className="hover:text-[#00ffff] transition-colors">Terms of Service</a>
+              </div>
+            </div>
+          </footer>
         </Providers>
         <Analytics />
       </body>
