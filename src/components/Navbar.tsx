@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useSession, signIn, signOut } from "next-auth/react"
-import { Menu, X, Map, Cpu, Server, MessageSquare, MapPin, Shield, LogOut, LogIn } from "lucide-react"
+import { Menu, X, Cpu, MessageSquare, MapPin, Shield, LogOut, LogIn } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 
