@@ -14,7 +14,6 @@ const navLinks = [
   { href: "/timeline", label: "Timeline", icon: Timer },
   { href: "/mapa", label: "Map", icon: MapPin },
   { href: "/sixm-hub", label: "SixM Hub", icon: Server },
-  { href: "/calculadora", label: "Calc", icon: Calculator },
   { href: "/test-pc", label: "PC Test", icon: Monitor },
 ]
 
