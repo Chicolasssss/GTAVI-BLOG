@@ -4,6 +4,7 @@ import "./globals.css"
 import Providers from "./providers"
 import Navbar from "@/components/Navbar"
 import ParticlesBg from "@/components/ParticlesBg"
+import CookieBanner from "@/components/CookieBanner"
 import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] })
@@ -106,11 +107,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 Leonida Hub is an unofficial fan site. We are not affiliated with, associated with, authorized, endorsed by, or in any way officially connected with Rockstar Games, Take-Two Interactive, or any of its subsidiaries or its affiliates. The official Rockstar Games website can be found at rockstargames.com.
               </p>
               <div className="flex items-center gap-4 text-xs font-medium text-white/50">
-                <a href="#" className="hover:text-[#ff007f] transition-colors">Privacy Policy</a>
-                <a href="#" className="hover:text-[#00ffff] transition-colors">Terms of Service</a>
+                <a href="/privacy" className="hover:text-[#ff007f] transition-colors">Privacy Policy</a>
+                <a href="/terms" className="hover:text-[#00ffff] transition-colors">Terms of Service</a>
               </div>
             </div>
           </footer>
+          <CookieBanner />
         </Providers>
         <Analytics />
       </body>
