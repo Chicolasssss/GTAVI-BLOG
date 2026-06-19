@@ -6,6 +6,8 @@ import {
   ArrowLeft, ChevronUp, User, Clock, Send, Loader2,
 } from "lucide-react"
 import Link from "next/link"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 import { toggleUpvote, addComment } from "@/app/actions/forum"
 import { useToast } from "@/components/Toast"
 
@@ -139,8 +141,10 @@ export default function PostDetail({
               </div>
 
               {post.content && (
-                <div className="mt-5 text-white/70 leading-relaxed whitespace-pre-wrap text-sm md:text-base">
-                  {post.content}
+                <div className="mt-5 text-white/80 leading-relaxed text-sm md:text-base prose prose-invert max-w-none prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10 prose-img:rounded-xl">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {post.content}
+                  </ReactMarkdown>
                 </div>
               )}
             </div>

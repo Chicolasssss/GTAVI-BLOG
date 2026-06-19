@@ -15,7 +15,7 @@ type Category = {
   color_hex: string
 }
 
-const ADMIN_IDS = ["343975648157827083"]
+const ADMIN_IDS = ["343975648157827083", "3680e25d-3e9a-4846-83ea-4dbbe6ff8f89"]
 
 export default function AdminCategoriasPage() {
   const { data: session } = useSession()
@@ -41,8 +41,13 @@ export default function AdminCategoriasPage() {
   if (!session?.user?.id || !ADMIN_IDS.includes(session.user.id)) {
     return (
       <div className="min-h-screen pt-24 px-4 pb-20 flex items-center justify-center">
-        <div className="glass rounded-2xl p-10 text-center max-w-md">
-          <p className="text-white/40">Acceso restringido a administradores</p>
+        <div className="glass rounded-2xl p-10 text-center max-w-md border border-red-500/30">
+          <p className="text-white/80 font-bold mb-4">Acceso restringido a administradores</p>
+          <p className="text-white/40 text-sm">Tu ID actual de Discord/Google es:</p>
+          <div className="bg-black/50 p-3 rounded-lg mt-2 font-mono text-[#00ffff] select-all border border-white/5">
+            {session?.user?.id || "No detectado"}
+          </div>
+          <p className="text-white/30 text-xs mt-4">Pásale este ID al sistema para que te dé acceso.</p>
         </div>
       </div>
     )

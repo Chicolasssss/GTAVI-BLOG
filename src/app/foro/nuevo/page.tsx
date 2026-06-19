@@ -11,8 +11,9 @@ import { useToast } from "@/components/Toast"
 const CATEGORIES = [
   { value: "general", label: "General Discussion" },
   { value: "roleplay", label: "Roleplay" },
-  { value: "coches", label: "Mechanics / Cars" },
-  { value: "salseo", label: "News / Rumors" },
+  { value: "scripts", label: "Scripts & Dev" },
+  { value: "server", label: "Servers" },
+  { value: "offtopic", label: "Off-Topic" },
 ]
 
 export default function NewPostPage() {
@@ -93,13 +94,21 @@ export default function NewPostPage() {
             />
           </div>
 
-          <div>
-            <label className="text-white/60 text-sm font-medium mb-1.5 block">Content</label>
+          <div className="space-y-2">
+            <label className="text-white/60 text-sm font-semibold">Content</label>
+            <div className="flex items-center gap-2 mb-2 text-xs text-white/40 bg-white/5 p-2 rounded-lg">
+              <span className="font-bold text-white/60">Markdown Supported:</span>
+              <span>**bold**</span>
+              <span>*italic*</span>
+              <span className="font-mono bg-black/50 px-1 rounded">```code```</span>
+              <span>[link](url)</span>
+            </div>
             <textarea
               name="content"
-              rows={6}
-              placeholder="Write your message..."
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 outline-none focus:border-[#ff007f] transition-all resize-y"
+              required
+              rows={8}
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 outline-none focus:border-[#00ffff] transition-all font-mono text-sm"
+              placeholder="What's on your mind? You can use Markdown to format your text."
             />
           </div>
 

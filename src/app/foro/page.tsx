@@ -1,5 +1,3 @@
-import { Suspense } from "react"
-import { supabaseAdmin, queryWithTimeout } from "@/lib/supabase"
 import ForumFeed from "./ForumFeed"
 import type { Metadata } from "next"
 
@@ -13,51 +11,10 @@ export const metadata: Metadata = {
 const CATEGORIES = [
   { slug: "general", label: "General Discussion", icon: "💬" },
   { slug: "roleplay", label: "Roleplay", icon: "🎭" },
-  { slug: "coches", label: "Mechanics / Cars", icon: "🏎️" },
-  { slug: "salseo", label: "News / Rumors", icon: "🔥" },
+  { slug: "scripts", label: "Scripts & Dev", icon: "💻" },
+  { slug: "server", label: "Servers", icon: "🌐" },
+  { slug: "offtopic", label: "Off-Topic", icon: "☕" },
 ] as const
-
-function getDb() {
-  const db = supabaseAdmin
-  if (!db) {
-    console.warn("Database not configured. Returning empty posts.")
-    return null
-  }
-  return db
-}
-
-async function getPosts(category?: string) {
-  const db = getDb()
-  if (!db) return []
-
-  try {
-    const data = await queryWithTimeout(async () => {
-      let query = db
-        .from("posts")
-        .select("id, title, content, category, upvotes, author_name, created_at")
-        .order("created_at", { ascending: false })
-        .limit(50)
-
-      if (category && category !== "todo") {
-        query = query.eq("category", category)
-      }
-
-      const { data, error } = await query
-      if (error) throw error
-      return data ?? []
-    }, 4000)
-
-    return data
-  } catch (err) {
-    console.error("Failed to fetch posts (timeout or error):", err)
-    return []
-  }
-}
-
-async function PostList({ category }: { category?: string }) {
-  const posts = await getPosts(category)
-  return <ForumFeed posts={posts} />
-}
 
 export default async function ForumPage({
   searchParams,
@@ -121,18 +78,8 @@ export default async function ForumPage({
             </nav>
           </aside>
 
-          <main className="flex-1 space-y-4">
-            <Suspense
-              fallback={
-                <div className="space-y-4 animate-pulse">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="bg-white/5 rounded-2xl p-5 h-32 border border-white/5"></div>
-                  ))}
-                </div>
-              }
-            >
-              <PostList category={cat} />
-            </Suspense>
+          <main className="flex-1 min-w-0">
+            <ForumFeed category={cat} />
           </main>
         </div>
       </div>

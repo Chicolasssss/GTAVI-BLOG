@@ -1,8 +1,12 @@
 import { createClient } from "@supabase/supabase-js"
 
 function getClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  let supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (supabaseUrl && supabaseUrl.includes("fmttxwhztplzertoxwlf")) {
+    supabaseUrl = supabaseUrl.replace("fmttxwhztplzertoxwlf", "fmtxwhzteplzertoxwlf")
+  }
 
   if (!supabaseUrl || !supabaseAnonKey) {
     return null
@@ -12,8 +16,12 @@ function getClient() {
 }
 
 function getAdminClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  let supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+  if (supabaseUrl && supabaseUrl.includes("fmttxwhztplzertoxwlf")) {
+    supabaseUrl = supabaseUrl.replace("fmttxwhztplzertoxwlf", "fmtxwhzteplzertoxwlf")
+  }
 
   if (!supabaseUrl || !serviceRoleKey) {
     return null

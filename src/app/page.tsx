@@ -5,7 +5,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import {
   LogIn, LogOut, Sparkles, Gamepad2, Users, Map, Cpu,
-  Send, CheckCircle, Loader2,
+  Send, CheckCircle, Loader2, Database, Code2,
 } from "lucide-react"
 import Link from "next/link"
 import { useCountdown } from "@/hooks/useCountdown"
@@ -151,82 +151,48 @@ function HeroSection({
         >
           {status === "loading" ? (
             <div className="w-64 h-12 mx-auto rounded-full bg-white/5 animate-pulse" />
-          ) : session?.user && reserved ? (
-            <div className="flex flex-col items-center gap-4">
-              <div className="flex items-center gap-4 glass rounded-full px-6 py-3">
+          ) : session?.user ? (
+            <div className="flex flex-col items-center gap-6">
+              <div className="flex items-center gap-4 glass rounded-[20px] p-2 pr-6 border border-white/5 shadow-2xl bg-black/40 backdrop-blur-md">
                 <img
                   src={session.user.image || ""}
                   alt=""
-                  className="w-10 h-10 rounded-full ring-2 ring-[#ff007f]"
+                  className="w-12 h-12 rounded-[14px] ring-1 ring-white/10"
                 />
                 <div className="text-left">
-                  <p className="text-white font-semibold text-sm">{session.user.name}</p>
-                  <p className="text-[#69f0ae] text-xs flex items-center gap-1">
-                    <CheckCircle size={12} /> Name reserved
-                  </p>
+                  <p className="text-white/50 text-xs font-bold uppercase tracking-wider mb-0.5">Welcome Back</p>
+                  <p className="text-white font-semibold text-base leading-none">{session.user.name}</p>
                 </div>
                 <button
                   onClick={() => signOut()}
-                  className="text-white/30 hover:text-white/60 transition ml-4"
+                  className="ml-6 p-2 rounded-xl bg-white/5 text-white/40 hover:bg-white/10 hover:text-white transition-all group"
+                  title="Sign Out"
                 >
-                  <LogOut size={18} />
+                  <LogOut size={16} className="group-hover:-translate-x-0.5 transition-transform" />
                 </button>
               </div>
-              <Link
-                href="/test-pc"
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-sm bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-white hover:translate-y-[-2px] hover:shadow-lg hover:shadow-[#ff007f]/40 transition-all mt-2"
-              >
-                <Gamepad2 size={18} /> Test Your PC
-              </Link>
-            </div>
-          ) : session?.user ? (
-            <div className="flex flex-col items-center gap-4">
-              <div className="glass rounded-2xl p-6 w-full max-w-md">
-                <div className="flex items-center gap-3 mb-5">
-                  <img
-                    src={session.user.image || ""}
-                    alt=""
-                    className="w-10 h-10 rounded-full ring-2 ring-[#ff007f]"
-                  />
-                  <div className="text-left">
-                    <p className="text-white font-semibold text-sm">{session.user.name}</p>
-                    <p className="text-white/40 text-xs">Reserve your Leonida name</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter your name..."
-                    maxLength={32}
-                    className="flex-1 bg-white/5 border border-[#ff007f]/40 rounded-xl px-4 h-12 text-white placeholder:text-white/20 outline-none focus:border-[#ff007f] focus:shadow-[0_0_12px_rgba(255,0,127,0.25)] transition-all"
-                    onKeyDown={(e) => e.key === "Enter" && handleReserve()}
-                  />
-                  <button
-                    onClick={handleReserve}
-                    disabled={submitting}
-                    className="h-12 px-6 rounded-xl bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-white font-semibold text-sm flex items-center gap-2 hover:shadow-lg hover:shadow-[#ff007f]/30 transition-all disabled:opacity-50"
-                  >
-                    {submitting ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
-                    Claim
-                  </button>
-                </div>
+              
+              <div className="flex items-center gap-4">
+                <Link
+                  href={`/u/${encodeURIComponent(session.user.name || "")}`}
+                  className="px-6 py-3 rounded-xl bg-white/5 text-white font-medium text-sm hover:bg-white/10 transition-colors border border-white/5"
+                >
+                  View Profile
+                </Link>
+                <Link
+                  href="/foro"
+                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-white font-bold text-sm shadow-[0_0_20px_rgba(255,0,127,0.3)] hover:shadow-[0_0_30px_rgba(255,0,127,0.5)] transition-all hover:scale-105"
+                >
+                  Enter Forum
+                </Link>
               </div>
-
-              <button
-                onClick={() => signOut()}
-                className="text-white/30 hover:text-white/60 text-xs transition flex items-center gap-1"
-              >
-                <LogOut size={14} /> Sign out
-              </button>
             </div>
           ) : (
-            <button
-              onClick={() => signIn("discord")}
-              className="inline-flex items-center gap-2 px-10 py-4 rounded-full font-semibold text-base bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-white hover:translate-y-[-2px] transition-all shadow-[0_0_20px_rgba(255,0,127,0.3),0_0_40px_rgba(0,255,255,0.1)]"
+            <button 
+              onClick={() => signIn()}
+              className="mt-6 flex items-center justify-center gap-3 mx-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-white font-black text-lg shadow-[0_0_30px_rgba(255,0,127,0.4)] hover:shadow-[0_0_50px_rgba(255,0,127,0.6)] hover:scale-[1.02] transition-all"
             >
-              <LogIn size={20} /> Login with Discord to Reserve Your Name
+              <LogIn size={22} /> Login to Join the Community
             </button>
           )}
         </motion.div>
@@ -237,33 +203,68 @@ function HeroSection({
 
 function FeaturesGrid() {
   const features = [
-    { icon: Cpu, title: "Bottleneck Calculator", desc: "Does your PC run GTA VI?", href: "/test-pc" },
-    { icon: Map, title: "Interactive Map", desc: "Explore Vice City", href: "/mapa" },
-    { icon: Users, title: "Server Directory", desc: "Find your community", href: "/servidores" },
-    { icon: Gamepad2, title: "16+ Tools", desc: "Everything in one place", href: "/" },
+    {
+      icon: Database,
+      title: "The Ultimate Database",
+      desc: "Complete GTA VI wiki featuring confirmed and leaked characters, vehicles, and weapons. Updated 24/7.",
+      color: "from-[#ff007f] to-[#ff007f]/50",
+      text: "text-[#ff007f]"
+    },
+    {
+      icon: Code2,
+      title: "Scripts & Development",
+      desc: "The meeting point for developers. Share, download, and prepare for the new Roleplay server APIs.",
+      color: "from-[#00ffff] to-[#00ffff]/50",
+      text: "text-[#00ffff]"
+    },
+    {
+      icon: Users,
+      title: "Community & Servers",
+      desc: "Find your next home. Official ranking for the first GTA VI Roleplay servers currently in development.",
+      color: "from-[#ffd740] to-[#ffd740]/50",
+      text: "text-[#ffd740]"
+    },
   ]
 
   return (
-    <section className="max-w-6xl mx-auto px-6 pb-32">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <section className="max-w-6xl mx-auto px-6 pb-32 mt-24">
+      <div className="text-center mb-16">
+        <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
+          PREPARE FOR THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff007f] to-[#00ffff]">NEXT GENERATION</span>
+        </h2>
+        <p className="text-white/60 text-lg md:text-xl max-w-3xl mx-auto font-medium">
+          Leonida Hub is the central platform for the international GTA VI community. 
+          Everything you need to survive and dominate in Vice City, gathered in one place.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {features.map((f, i) => {
           const Icon = f.icon
           return (
-            <Link key={i} href={f.href}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="glass rounded-2xl p-6 hover:border-[#ff007f]/40 transition-all group cursor-pointer"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#ff007f]/10 flex items-center justify-center mb-4 group-hover:bg-[#ff007f]/20 transition-colors">
-                  <Icon className="text-[#ff007f]" size={22} />
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              viewport={{ once: true }}
+              className="relative p-[1px] rounded-3xl bg-gradient-to-b from-white/10 to-transparent group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl blur-xl" style={{ backgroundImage: `linear-gradient(to bottom right, var(--tw-gradient-stops))` }} />
+              
+              <div className="relative h-full bg-black/40 backdrop-blur-xl rounded-[23px] p-8 flex flex-col items-center text-center overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r opacity-50 group-hover:opacity-100 transition-opacity" style={{ backgroundImage: `linear-gradient(to right, var(--tw-gradient-stops))` }} />
+                
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${f.color} bg-opacity-10 flex items-center justify-center mb-6 shadow-lg shadow-black/50 group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon className="text-white" size={32} />
                 </div>
-                <h3 className="text-white font-semibold mb-1">{f.title}</h3>
-                <p className="text-white/40 text-sm">{f.desc}</p>
-              </motion.div>
-            </Link>
+                
+                <h3 className="text-xl font-bold text-white mb-4">{f.title}</h3>
+                <p className="text-white/50 text-sm leading-relaxed font-medium">
+                  {f.desc}
+                </p>
+              </div>
+            </motion.div>
           )
         })}
       </div>

@@ -2,9 +2,8 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import {
-  Code2, Download, Shield, ExternalLink, Lock,
-} from "lucide-react"
+import { Code2, Lock } from "lucide-react"
+import ScriptsFeed from "./ScriptsFeed"
 
 export default function ScriptsPage() {
   const [tab, setTab] = useState<"fivem" | "gtavi">("fivem")
@@ -50,46 +49,7 @@ export default function ScriptsPage() {
         </div>
 
         {tab === "fivem" ? (
-          <div className="max-w-xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="glass rounded-2xl p-6 md:p-8 hover:border-[#00ffff]/20 transition-all group"
-            >
-              <div className="flex items-start gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#ff007f]/20 to-[#00ffff]/20 flex items-center justify-center shrink-0">
-                  <Shield size={28} className="text-[#00ffff]" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <h3 className="text-white font-bold text-lg group-hover:text-[#00ffff] transition-colors">
-                      x64Hub — FiveM Anticheat
-                    </h3>
-                    <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#ffd740]/15 text-[#ffd740] shrink-0">
-                      $19
-                    </span>
-                  </div>
-                  <p className="text-white/50 text-sm leading-relaxed mb-3">
-                    Advanced anticheat, log reviewer, custom FiveM page builder, whitelist configurator, and full server management panel. All-in-one solution for your FiveM server.
-                  </p>
-                  <div className="flex items-center gap-2 flex-wrap mb-4">
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#ff007f]/10 text-[#ff007f]/80 uppercase tracking-wider">Anticheat</span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#ff007f]/10 text-[#ff007f]/80 uppercase tracking-wider">Logs</span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#ff007f]/10 text-[#ff007f]/80 uppercase tracking-wider">Whitelist</span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#ff007f]/10 text-[#ff007f]/80 uppercase tracking-wider">Web Panel</span>
-                  </div>
-                  <a
-                    href="https://x64hub.com"
-                    target="_blank"
-                    rel="nofollow sponsored noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 h-10 rounded-xl bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-white font-semibold text-sm hover:shadow-lg hover:shadow-[#ff007f]/30 transition-all"
-                  >
-                    <ExternalLink size={16} /> View Details
-                  </a>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+          <ScriptsFeed />
         ) : (
           <div className="glass rounded-2xl p-16 text-center relative overflow-hidden">
             <div className="absolute inset-0 backdrop-blur-sm flex items-center justify-center">
