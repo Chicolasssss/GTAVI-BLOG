@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from "react"
 
-const CONCEPT_MAP_URL =
-  "https://i.redd.it/zn5kjfgglzbc1.jpeg"
+const CONCEPT_MAP_URL = "/gta-vi-map-concept.webp"
+
+const IS_CONCEPT_ART = true
 
 const POINTS = [
   {
@@ -122,8 +123,15 @@ export default function MapClient() {
         <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0f] z-50">
           <div className="text-center max-w-sm px-6">
             <p className="text-white/60 text-sm mb-2">Could not load the concept map.</p>
-            <p className="text-white/20 text-xs">Make sure the image URL is accessible. You can update it in <code className="text-[#ff007f]">MapClient.tsx</code>.</p>
+            <p className="text-white/20 text-xs">The image may have moved. You can update the path in <code className="text-[#ff007f]">MapClient.tsx</code>.</p>
           </div>
+        </div>
+      )}
+      {ready && IS_CONCEPT_ART && (
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20">
+          <span className="text-[10px] px-3 py-1 rounded-full bg-black/60 text-white/40 backdrop-blur-sm border border-white/5">
+            🎨 Concept art — Not the final GTA VI map
+          </span>
         </div>
       )}
       <style jsx global>{`
