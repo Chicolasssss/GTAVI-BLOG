@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from "react"
 
+const CONCEPT_MAP_URL =
+  "https://i.redd.it/zn5kjfgglzbc1.jpeg"
+
 const POINTS = [
   {
     id: 1,
@@ -27,6 +30,7 @@ export default function MapClient() {
   const mapRef = useRef<HTMLDivElement>(null)
   const mapInstance = useRef<any>(null)
   const [ready, setReady] = useState(false)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     if (mapRef.current && !mapInstance.current) {
@@ -46,11 +50,10 @@ export default function MapClient() {
           [25.4, -80.8],
           [25.95, -79.7],
         ]
-        L.imageOverlay(
-          "https://placehold.co/1200x800/0a0a0f/ff007f?text=GTA+VI+Concept+Map",
-          bounds,
-          { opacity: 1 },
-        ).addTo(map)
+
+        const overlay = L.imageOverlay(CONCEPT_MAP_URL, bounds, { opacity: 1 })
+        overlay.on("error", () => setError(true))
+        overlay.addTo(map)
 
         const neonIcon = L.divIcon({
           className: "",
@@ -89,7 +92,7 @@ export default function MapClient() {
         map.fitBounds(bounds)
         mapInstance.current = map
         setReady(true)
-      })
+      }).catch(() => setError(true))
 
       return () => {
         cancelled = true
@@ -107,11 +110,19 @@ export default function MapClient() {
   return (
     <div className="relative" style={{ height: "calc(100vh - 64px)", marginTop: "64px" }}>
       <div ref={mapRef} className="w-full h-full" />
-      {!ready && (
+      {!ready && !error && (
         <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0f] z-50">
           <div className="text-center">
             <div className="w-8 h-8 border-2 border-[#ff007f] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
             <p className="text-white/40 text-sm">Loading map...</p>
+          </div>
+        </div>
+      )}
+      {error && (
+        <div className="absolute inset-0 flex items-center justify-center bg-[#0a0a0f] z-50">
+          <div className="text-center max-w-sm px-6">
+            <p className="text-white/60 text-sm mb-2">Could not load the concept map.</p>
+            <p className="text-white/20 text-xs">Make sure the image URL is accessible. You can update it in <code className="text-[#ff007f]">MapClient.tsx</code>.</p>
           </div>
         </div>
       )}

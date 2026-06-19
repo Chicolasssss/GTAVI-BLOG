@@ -1,14 +1,16 @@
 "use client"
 
 import { useSession, signIn, signOut } from "next-auth/react"
-import { Menu, X, Cpu, MessageSquare, MapPin, Shield, LogOut, LogIn } from "lucide-react"
+import { Menu, X, Cpu, MessageSquare, MapPin, Shield, Radio, Code2, LogOut, LogIn } from "lucide-react"
 import { useState } from "react"
 
 const navLinks = [
-  { href: "/foro", label: "Foro", icon: MessageSquare },
+  { href: "/foro", label: "Forum", icon: MessageSquare },
+  { href: "/radar", label: "Radar", icon: Radio },
+  { href: "/scripts", label: "Scripts", icon: Code2 },
   { href: "/mapa", label: "Map", icon: MapPin },
   { href: "/servidores", label: "Servers", icon: Shield },
-  { href: "/calculadora", label: "PC Test", icon: Cpu },
+  { href: "/test-pc", label: "PC Test", icon: Cpu },
 ]
 
 export default function Navbar() {

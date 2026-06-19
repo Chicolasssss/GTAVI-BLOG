@@ -50,13 +50,16 @@ export default function Home() {
   )
 }
 
-const TARGET_DATE = new Date("2025-10-01T00:00:00")
+const PRE_ORDER_DATE = new Date("2026-06-25T00:00:00")
+const LAUNCH_DATE = new Date("2026-11-19T00:00:00")
 
 function HeroSection({
   session, status, signIn, signOut,
   name, setName, submitting, reserved, handleReserve,
 }: any) {
-  const countdown = useCountdown(TARGET_DATE)
+  const isPreSale = Date.now() < PRE_ORDER_DATE.getTime()
+  const target = isPreSale ? PRE_ORDER_DATE : LAUNCH_DATE
+  const countdown = useCountdown(target)
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden">
@@ -69,7 +72,7 @@ function HeroSection({
           transition={{ duration: 0.8 }}
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#ffd700]/30 text-[#ffd700] text-xs font-semibold tracking-widest uppercase mb-8">
-            <Sparkles size={14} /> Coming Soon
+            <Sparkles size={14} /> {isPreSale ? "Pre-Sale Phase" : "Launch Phase"}
           </div>
 
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-none mb-2">
@@ -84,12 +87,25 @@ function HeroSection({
           </p>
         </motion.div>
 
-        {countdown.isMounted && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-8"
+        >
+          <p className="text-white/50 text-sm font-medium tracking-wide">
+            {isPreSale
+              ? "Leonida Pre-Sale starts in:"
+              : "Official Leonida Launch:"}
+          </p>
+        </motion.div>
+
+        {countdown.isMounted && !countdown.expired && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="mt-12 flex justify-center gap-8 md:gap-12"
+            className="mt-4 flex justify-center gap-8 md:gap-12"
           >
             {[
               { key: "days", label: "Days" },
@@ -106,6 +122,22 @@ function HeroSection({
                 </div>
               </div>
             ))}
+          </motion.div>
+        )}
+
+        {isPreSale && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="mt-6"
+          >
+            <button
+              onClick={() => alert("🔔 You'll be notified when the pre-sale opens!")}
+              className="inline-flex items-center gap-2 px-6 h-11 rounded-full border border-[#ff007f]/40 text-[#ff007f] text-sm font-semibold hover:bg-[#ff007f]/10 transition-all"
+            >
+              <Sparkles size={16} /> Notify me when pre-sale opens
+            </button>
           </motion.div>
         )}
 
@@ -139,7 +171,7 @@ function HeroSection({
                 </button>
               </div>
               <Link
-                href="/calculadora"
+                href="/test-pc"
                 className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-sm bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-white hover:translate-y-[-2px] hover:shadow-lg hover:shadow-[#ff007f]/40 transition-all mt-2"
               >
                 <Gamepad2 size={18} /> Test Your PC
@@ -203,7 +235,7 @@ function HeroSection({
 
 function FeaturesGrid() {
   const features = [
-    { icon: Cpu, title: "Bottleneck Calculator", desc: "Does your PC run GTA VI?", href: "/calculadora" },
+    { icon: Cpu, title: "Bottleneck Calculator", desc: "Does your PC run GTA VI?", href: "/test-pc" },
     { icon: Map, title: "Interactive Map", desc: "Explore Vice City", href: "/mapa" },
     { icon: Users, title: "Server Directory", desc: "Find your community", href: "/servidores" },
     { icon: Gamepad2, title: "16+ Tools", desc: "Everything in one place", href: "/" },

@@ -2,8 +2,8 @@
 
 import dynamic from "next/dynamic"
 
-const MapClient = dynamic(() => import("./MapClient"), { ssr: false })
+const MapComponent = dynamic(() => import("../../components/MapComponent"), { ssr: false })
 
 export default function MapaPage() {
-  return <MapClient />
+  return <MapComponent />
 }

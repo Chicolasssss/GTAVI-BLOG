@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useSession } from "next-auth/react"
-import { ChevronUp, MessageSquare, Clock, User } from "lucide-react"
+import { ArrowBigUp, MessageSquare, Clock, User } from "lucide-react"
 import { toggleUpvote } from "@/app/actions/forum"
 import { useToast } from "@/components/Toast"
 
@@ -59,71 +59,83 @@ export default function ForumFeed({ posts: initial }: { posts: Post[] }) {
           p.id === postId ? { ...p, upvotes: p.upvotes + (p.upvotes % 2 === 0 ? 1 : -1) } : p
         )
       )
+    } else {
+      toast("error", "Failed to vote. Try again.")
     }
   }
 
   if (posts.length === 0) {
     return (
-      <div className="glass rounded-2xl p-12 text-center">
-        <p className="text-white/30 text-lg">No posts yet.</p>
+      <div className="bg-white/5 rounded-2xl p-12 text-center border border-white/10">
+        <p className="text-white/40 text-lg font-medium">No posts found in this section.</p>
         <a
           href="/foro/nuevo"
-          className="inline-flex items-center gap-2 mt-4 text-[#ff007f] hover:underline text-sm"
+          className="inline-flex items-center gap-2 mt-4 text-[#00ffff] hover:text-white transition-colors font-medium text-sm"
         >
-          Be the first to create one
+          Be the first to create one →
         </a>
       </div>
     )
   }
 
   return (
-    <>
+    <div className="flex flex-col gap-3">
       {posts.map((post) => (
         <a
           key={post.id}
           href={`/foro/${post.id}`}
-          className="glass rounded-2xl p-5 flex gap-4 hover:border-[#ff007f]/30 transition-all group"
+          className="bg-[#121216] border border-white/5 rounded-xl flex hover:border-white/20 transition-all cursor-pointer overflow-hidden group"
         >
-          <div className="flex flex-col items-center gap-0.5 min-w-[48px]">
+          {/* Vote Column */}
+          <div className="w-12 bg-[#0a0a0f] flex flex-col items-center py-3 gap-1 shrink-0 border-r border-white/5">
             <button
               onClick={(e) => {
                 e.preventDefault()
                 e.stopPropagation()
                 handleVote(post.id)
               }}
-              className="p-1.5 rounded-lg text-white/30 hover:text-[#ff007f] hover:bg-[#ff007f]/10 transition-all"
+              className="text-white/30 hover:text-[#ff4500] hover:bg-white/5 p-1 rounded transition-colors"
             >
-              <ChevronUp size={20} />
+              <ArrowBigUp size={24} strokeWidth={1.5} />
             </button>
-            <span className="text-sm font-bold text-white/70">{post.upvotes}</span>
+            <span className="text-sm font-bold text-white/90">{post.upvotes}</span>
           </div>
 
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[10px] uppercase tracking-widest text-[#ff007f]/60 font-semibold">
-                {CATEGORY_LABELS[post.category] ?? post.category}
+          {/* Content Column */}
+          <div className="p-3 pl-4 flex-1 min-w-0">
+            <div className="flex items-center gap-2 text-xs text-white/50 mb-1.5">
+              <span className="font-bold text-white/80 hover:underline">
+                t/{post.category}
               </span>
+              <span>•</span>
+              <span>Posted by <span className="hover:text-white transition-colors">u/{post.author_name}</span></span>
+              <span>•</span>
+              <span>{timeAgo(post.created_at)}</span>
             </div>
-            <h2 className="text-white font-semibold text-lg mt-0.5 group-hover:text-[#ff007f] transition-colors leading-snug">
+            
+            <h2 className="text-lg font-semibold text-white/90 leading-snug mb-1 group-hover:text-white">
               {post.title}
             </h2>
-            <p className="text-white/40 text-sm mt-1 line-clamp-2">
-              {post.content || "No content"}
+            
+            <p className="text-sm text-white/60 line-clamp-3 mb-3 leading-relaxed">
+              {post.content || "No text content"}
             </p>
-            <div className="flex items-center gap-4 mt-3 text-xs text-white/30">
-              <span className="flex items-center gap-1">
-                <User size={12} /> {post.author_name}
-              </span>
-              <span className="flex items-center gap-1">
-                <Clock size={12} /> {timeAgo(post.created_at)}
-              </span>
-              <span className="flex items-center gap-1">
-                <MessageSquare size={12} /> 0
-              </span>
+            
+            <div className="flex items-center gap-4 text-xs font-bold text-white/40">
+              <div className="flex items-center gap-1.5 hover:bg-white/10 px-2 py-1.5 rounded transition-colors">
+                <MessageSquare size={16} />
+                <span>Comments</span>
+              </div>
+              <div className="flex items-center gap-1.5 hover:bg-white/10 px-2 py-1.5 rounded transition-colors">
+                <span>Share</span>
+              </div>
+              <div className="flex items-center gap-1.5 hover:bg-white/10 px-2 py-1.5 rounded transition-colors">
+                <span>Save</span>
+              </div>
             </div>
           </div>
         </a>
       ))}
-    </>
+    </div>
   )
 }

@@ -13,8 +13,9 @@ function pad(n: number): string {
   return String(n).padStart(2, "0")
 }
 
-export function useCountdown(target: Date): Countdown & { isMounted: boolean } {
+export function useCountdown(target: Date): Countdown & { isMounted: boolean; expired: boolean } {
   const [mounted, setMounted] = useState(false)
+  const [expired, setExpired] = useState(false)
   const [countdown, setCountdown] = useState<Countdown>({
     days: "00",
     hours: "00",
@@ -29,8 +30,10 @@ export function useCountdown(target: Date): Countdown & { isMounted: boolean } {
       const diff = target.getTime() - Date.now()
       if (diff <= 0) {
         setCountdown({ days: "00", hours: "00", minutes: "00", seconds: "00" })
+        setExpired(true)
         return
       }
+      setExpired(false)
       setCountdown({
         days: pad(Math.floor(diff / 86400000)),
         hours: pad(Math.floor((diff % 86400000) / 3600000)),
@@ -44,5 +47,5 @@ export function useCountdown(target: Date): Countdown & { isMounted: boolean } {
     return () => clearInterval(id)
   }, [target])
 
-  return { ...countdown, isMounted: mounted }
+  return { ...countdown, isMounted: mounted, expired }
 }
