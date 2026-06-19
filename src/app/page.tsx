@@ -20,15 +20,15 @@ export default function Home() {
   const [reserved, setReserved] = useState(false)
 
   const handleReserve = async () => {
-    if (!name.trim()) return toast("error", "Escribe un nombre")
+    if (!name.trim()) return toast("error", "Enter a name")
     setSubmitting(true)
     const res = await reserveName(name)
     setSubmitting(false)
     if (res.ok) {
       setReserved(true)
-      toast("success", `"${name}" reservado con éxito en Leonida`)
+      toast("success", `"${name}" reserved successfully in Leonida`)
     } else {
-      toast("error", res.error ?? "Error desconocido")
+      toast("error", res.error ?? "Unknown error")
     }
   }
 
@@ -50,11 +50,13 @@ export default function Home() {
   )
 }
 
+const TARGET_DATE = new Date("2025-10-01T00:00:00")
+
 function HeroSection({
   session, status, signIn, signOut,
   name, setName, submitting, reserved, handleReserve,
 }: any) {
-  const countdown = useCountdown(new Date("2025-10-01T00:00:00"))
+  const countdown = useCountdown(TARGET_DATE)
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden">
@@ -67,18 +69,18 @@ function HeroSection({
           transition={{ duration: 0.8 }}
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#ffd700]/30 text-[#ffd700] text-xs font-semibold tracking-widest uppercase mb-8">
-            <Sparkles size={14} /> Próximamente
+            <Sparkles size={14} /> Coming Soon
           </div>
 
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-none mb-2">
-            <span className="block text-white/90">Prepara tu llegada</span>
+            <span className="block text-white/90">Prepare your arrival</span>
             <span className="block gradient-text text-6xl md:text-8xl lg:text-9xl mt-2">
-              a Leonida
+              to Leonida
             </span>
           </h1>
 
           <p className="mt-6 text-white/40 text-lg max-w-xl mx-auto tracking-widest uppercase">
-            La red de ciudadanos de Grand Theft Auto VI
+            The Grand Theft Auto VI citizen network
           </p>
         </motion.div>
 
@@ -90,10 +92,10 @@ function HeroSection({
             className="mt-12 flex justify-center gap-8 md:gap-12"
           >
             {[
-              { key: "days", label: "Días" },
-              { key: "hours", label: "Horas" },
+              { key: "days", label: "Days" },
+              { key: "hours", label: "Hours" },
               { key: "minutes", label: "Min" },
-              { key: "seconds", label: "Seg" },
+              { key: "seconds", label: "Sec" },
             ].map(({ key, label }) => (
               <div key={key} className="text-center">
                 <div className="text-4xl md:text-6xl font-black gradient-text leading-none">
@@ -126,7 +128,7 @@ function HeroSection({
                 <div className="text-left">
                   <p className="text-white font-semibold text-sm">{session.user.name}</p>
                   <p className="text-[#69f0ae] text-xs flex items-center gap-1">
-                    <CheckCircle size={12} /> Nombre reservado
+                    <CheckCircle size={12} /> Name reserved
                   </p>
                 </div>
                 <button
@@ -140,7 +142,7 @@ function HeroSection({
                 href="/calculadora"
                 className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-sm bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-white hover:translate-y-[-2px] hover:shadow-lg hover:shadow-[#ff007f]/40 transition-all mt-2"
               >
-                <Gamepad2 size={18} /> Probar Calculadora de PC
+                <Gamepad2 size={18} /> Test Your PC
               </Link>
             </div>
           ) : session?.user ? (
@@ -154,7 +156,7 @@ function HeroSection({
                   />
                   <div className="text-left">
                     <p className="text-white font-semibold text-sm">{session.user.name}</p>
-                    <p className="text-white/40 text-xs">Reserva tu nombre en Leonida</p>
+                    <p className="text-white/40 text-xs">Reserve your Leonida name</p>
                   </div>
                 </div>
 
@@ -162,7 +164,7 @@ function HeroSection({
                   <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Escribe tu nombre..."
+                    placeholder="Enter your name..."
                     maxLength={32}
                     className="flex-1 bg-white/5 border border-[#ff007f]/40 rounded-xl px-4 h-12 text-white placeholder:text-white/20 outline-none focus:border-[#ff007f] focus:shadow-[0_0_12px_rgba(255,0,127,0.25)] transition-all"
                     onKeyDown={(e) => e.key === "Enter" && handleReserve()}
@@ -173,7 +175,7 @@ function HeroSection({
                     className="h-12 px-6 rounded-xl bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-white font-semibold text-sm flex items-center gap-2 hover:shadow-lg hover:shadow-[#ff007f]/30 transition-all disabled:opacity-50"
                   >
                     {submitting ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
-                    Reclamar
+                    Claim
                   </button>
                 </div>
               </div>
@@ -182,7 +184,7 @@ function HeroSection({
                 onClick={() => signOut()}
                 className="text-white/30 hover:text-white/60 text-xs transition flex items-center gap-1"
               >
-                <LogOut size={14} /> Cerrar sesión
+                <LogOut size={14} /> Sign out
               </button>
             </div>
           ) : (
@@ -190,7 +192,7 @@ function HeroSection({
               onClick={() => signIn("discord")}
               className="inline-flex items-center gap-2 px-10 py-4 rounded-full font-semibold text-base bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-white hover:translate-y-[-2px] transition-all shadow-[0_0_20px_rgba(255,0,127,0.3),0_0_40px_rgba(0,255,255,0.1)]"
             >
-              <LogIn size={20} /> Entrar con Discord para Reservar tu Nombre
+              <LogIn size={20} /> Login with Discord to Reserve Your Name
             </button>
           )}
         </motion.div>
@@ -201,10 +203,10 @@ function HeroSection({
 
 function FeaturesGrid() {
   const features = [
-    { icon: Cpu, title: "Test de Cuello de Botella", desc: "¿Tu PC corre GTA VI?", href: "/calculadora" },
-    { icon: Map, title: "Mapa Interactivo", desc: "Explora Vice City", href: "/map" },
-    { icon: Users, title: "Directorio de Servidores", desc: "Encuentra tu comunidad", href: "/servers" },
-    { icon: Gamepad2, title: "16 Herramientas", desc: "Todo en un solo lugar", href: "/" },
+    { icon: Cpu, title: "Bottleneck Calculator", desc: "Does your PC run GTA VI?", href: "/calculadora" },
+    { icon: Map, title: "Interactive Map", desc: "Explore Vice City", href: "/mapa" },
+    { icon: Users, title: "Server Directory", desc: "Find your community", href: "/servidores" },
+    { icon: Gamepad2, title: "16+ Tools", desc: "Everything in one place", href: "/" },
   ]
 
   return (

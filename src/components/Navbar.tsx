@@ -1,16 +1,14 @@
 "use client"
 
-import Link from "next/link"
 import { useSession, signIn, signOut } from "next-auth/react"
 import { Menu, X, Cpu, MessageSquare, MapPin, Shield, LogOut, LogIn } from "lucide-react"
-import Image from "next/image"
 import { useState } from "react"
 
 const navLinks = [
   { href: "/foro", label: "Foro", icon: MessageSquare },
-  { href: "/mapa", label: "Mapa", icon: MapPin },
-  { href: "/servidores", label: "Servidores", icon: Shield },
-  { href: "/calculadora", label: "Test PC", icon: Cpu },
+  { href: "/mapa", label: "Map", icon: MapPin },
+  { href: "/servidores", label: "Servers", icon: Shield },
+  { href: "/calculadora", label: "PC Test", icon: Cpu },
 ]
 
 export default function Navbar() {
@@ -20,23 +18,22 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-3 font-bold text-lg">
-          <Image src="/logo.png" alt="VI" width={32} height={32} className="w-8 h-8" />
-          <span className="tracking-widest text-white/90">LEONIDA HUB</span>
-        </Link>
+        <a href="/" className="flex items-center gap-3 font-bold text-lg no-underline">
+          <span className="tracking-widest text-white/90 text-xl">LEONIDA HUB</span>
+        </a>
 
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => {
             const Icon = link.icon
             return (
-              <Link
+              <a
                 key={link.href}
                 href={link.href}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm text-white/60 hover:text-white hover:bg-white/5 transition-all"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm text-white/60 hover:text-white hover:bg-white/5 transition-all no-underline"
               >
                 <Icon size={16} />
                 {link.label}
-              </Link>
+              </a>
             )
           })}
         </div>
@@ -54,7 +51,7 @@ export default function Navbar() {
                 onClick={() => signOut()}
                 className="flex items-center gap-1.5 text-sm text-white/40 hover:text-white/80 transition"
               >
-                <LogOut size={16} /> Salir
+                <LogOut size={16} /> Sign Out
               </button>
             </div>
           ) : (
@@ -62,7 +59,7 @@ export default function Navbar() {
               onClick={() => signIn("discord")}
               className="hidden md:flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-white text-sm font-semibold hover:shadow-lg hover:shadow-[#ff007f]/30 transition-all"
             >
-              <LogIn size={16} /> Entrar con Discord
+              <LogIn size={16} /> Login with Discord
             </button>
           )}
 
@@ -81,14 +78,14 @@ export default function Navbar() {
           {navLinks.map((link) => {
             const Icon = link.icon
             return (
-              <Link
+              <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="flex items-center gap-3 py-2 text-white/60 hover:text-white"
+                className="flex items-center gap-3 py-2 text-white/60 hover:text-white no-underline"
               >
                 <Icon size={18} /> {link.label}
-              </Link>
+              </a>
             )
           })}
           <hr className="border-white/10" />
@@ -105,7 +102,7 @@ export default function Navbar() {
               onClick={() => signIn("discord")}
               className="flex items-center justify-center gap-2 py-3 rounded-full bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-white font-semibold"
             >
-              <LogIn size={18} /> Entrar con Discord
+              <LogIn size={18} /> Login with Discord
             </button>
           )}
         </div>

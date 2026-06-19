@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { useSession, signIn } from "next-auth/react"
-import { useRouter } from "next/navigation"
 import {
   ArrowLeft, ChevronUp, User, Clock, Send, Loader2,
 } from "lucide-react"
@@ -28,21 +27,21 @@ type Comment = {
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
-  general: "Discusión General",
+  general: "General Discussion",
   roleplay: "Roleplay",
-  coches: "Mecánica / Coches",
-  salseo: "Salseo / Noticias",
+  coches: "Mechanics / Cars",
+  salseo: "News / Rumors",
 }
 
 function timeAgo(date: string) {
   const diff = Date.now() - new Date(date).getTime()
   const mins = Math.floor(diff / 60000)
-  if (mins < 1) return "ahora"
-  if (mins < 60) return `hace ${mins}m`
+  if (mins < 1) return "now"
+  if (mins < 60) return `${mins}m ago`
   const hrs = Math.floor(mins / 60)
-  if (hrs < 24) return `hace ${hrs}h`
+  if (hrs < 24) return `${hrs}h ago`
   const days = Math.floor(hrs / 24)
-  if (days < 30) return `hace ${days}d`
+  if (days < 30) return `${days}d ago`
   return new Date(date).toLocaleDateString()
 }
 
@@ -57,7 +56,6 @@ export default function PostDetail({
 }) {
   const { data: session } = useSession()
   const { toast } = useToast()
-  const router = useRouter()
   const [upvotes, setUpvotes] = useState(post.upvotes)
   const [comments, setComments] = useState(initialComments)
   const [voting, setVoting] = useState(false)
@@ -65,7 +63,7 @@ export default function PostDetail({
   const [commentText, setCommentText] = useState("")
 
   const handleVote = async () => {
-    if (!session) return toast("error", "Debes iniciar sesión")
+    if (!session) return toast("error", "You must log in")
     if (voting) return
     setVoting(true)
     const res = await toggleUpvote(post.id)
@@ -86,19 +84,19 @@ export default function PostDetail({
     const res = await addComment(fd)
     setSubmittingComment(false)
     if (res.ok) {
-      toast("success", "Comentario añadido")
+      toast("success", "Comment added")
       setCommentText("")
       setComments((prev) => [
         ...prev,
         {
           id: Date.now(),
           content: commentText,
-          author_name: session.user?.name ?? "Anónimo",
+          author_name: session.user?.name ?? "Anonymous",
           created_at: new Date().toISOString(),
         },
       ])
     } else {
-      toast("error", res.error ?? "Error al comentar")
+      toast("error", res.error ?? "Error commenting")
     }
   }
 
@@ -109,10 +107,9 @@ export default function PostDetail({
           href="/foro"
           className="inline-flex items-center gap-2 text-white/40 hover:text-white/70 text-sm mb-6 transition"
         >
-          <ArrowLeft size={16} /> Volver al foro
+          <ArrowLeft size={16} /> Back to forum
         </Link>
 
-        {/* Post */}
         <article className="glass rounded-2xl p-6 md:p-8">
           <div className="flex gap-4">
             <div className="flex flex-col items-center gap-1">
@@ -150,10 +147,9 @@ export default function PostDetail({
           </div>
         </article>
 
-        {/* Comments */}
         <section className="mt-8">
           <h2 className="text-white font-semibold text-lg mb-4">
-            Comentarios ({comments.length})
+            Comments ({comments.length})
           </h2>
 
           {session ? (
@@ -161,7 +157,7 @@ export default function PostDetail({
               <input
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
-                placeholder="Escribe un comentario..."
+                placeholder="Write a comment..."
                 className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 h-12 text-white placeholder:text-white/20 outline-none focus:border-[#ff007f] transition-all"
               />
               <button
@@ -178,7 +174,7 @@ export default function PostDetail({
                 onClick={() => signIn("discord")}
                 className="text-[#ff007f] hover:underline text-sm"
               >
-                Inicia sesión con Discord para comentar
+                Login with Discord to comment
               </button>
             </div>
           )}
@@ -186,7 +182,7 @@ export default function PostDetail({
           <div className="space-y-3">
             {comments.length === 0 && (
               <p className="text-white/30 text-sm text-center py-8">
-                Sin comentarios. Sé el primero en responder.
+                No comments yet. Be the first to reply.
               </p>
             )}
             {comments.map((c) => (

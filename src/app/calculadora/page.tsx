@@ -31,7 +31,7 @@ const gpuList = [
   { value: "rx-7800XT", label: "AMD RX 7800 XT", score: 85 },
 ]
 
-export default function Calculadora() {
+export default function BottleneckCalculator() {
   const [cpu, setCpu] = useState("")
   const [gpu, setGpu] = useState("")
   const [loading, setLoading] = useState(false)
@@ -48,23 +48,24 @@ export default function Calculadora() {
       const score = Math.round(c.score * 0.4 + g.score * 0.6)
 
       let label: string, color: string, icon: typeof CheckCircle, bottleneck: string | null
+
       if (score >= 85) {
-        label = "Compatibilidad Excelente"
+        label = "Excellent Compatibility"
         color = "#69f0ae"
         icon = CheckCircle
         bottleneck = null
       } else if (score >= 65) {
-        label = "Compatible — Ajusta gráficos"
+        label = "Compatible — Adjust settings"
         color = "#ffd740"
         icon = AlertTriangle
         bottleneck = Math.abs(c.score - g.score) > 15
-          ? (c.score < g.score ? "Tu CPU podría limitar la GPU" : "Tu GPU podría estar desaprovechada")
+          ? (c.score < g.score ? "Your CPU may bottleneck the GPU" : "Your GPU may be underutilized")
           : null
       } else {
-        label = "Riesgo de Cuello de Botella"
+        label = "Bottleneck Risk"
         color = "#ff5252"
         icon = AlertTriangle
-        bottleneck = "Considera actualizar ambos componentes"
+        bottleneck = "Consider upgrading both components"
       }
 
       setResult({ score, label, color, icon, bottleneck })
@@ -84,10 +85,10 @@ export default function Calculadora() {
             <Gauge size={14} /> Hardware
           </div>
           <h1 className="text-4xl md:text-5xl font-black gradient-text">
-            Calculadora de Cuello de Botella
+            Bottleneck Calculator
           </h1>
           <p className="text-white/40 mt-3 max-w-lg mx-auto">
-            Descubre si tu PC está lista para GTA VI. Selecciona tu CPU y GPU y analizamos la compatibilidad.
+            Find out if your PC is ready for GTA VI. Select your CPU and GPU and we&apos;ll analyze compatibility.
           </p>
         </div>
 
@@ -95,14 +96,14 @@ export default function Calculadora() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="text-white/60 text-sm font-medium mb-1.5 flex items-center gap-2">
-                <Cpu size={16} /> Tu Procesador
+                <Cpu size={16} /> Your Processor
               </label>
               <select
                 value={cpu}
                 onChange={(e) => { setCpu(e.target.value); setResult(null) }}
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 h-12 text-white outline-none focus:border-[#ff007f] transition-all appearance-none cursor-pointer"
               >
-                <option value="" className="bg-[#0a0a0f]">Selecciona...</option>
+                <option value="" className="bg-[#0a0a0f]">Select...</option>
                 {cpuList.map((c) => (
                   <option key={c.value} value={c.value} className="bg-[#0a0a0f]">{c.label}</option>
                 ))}
@@ -110,14 +111,14 @@ export default function Calculadora() {
             </div>
             <div>
               <label className="text-white/60 text-sm font-medium mb-1.5 flex items-center gap-2">
-                <Monitor size={16} /> Tu Tarjeta Gráfica
+                <Monitor size={16} /> Your Graphics Card
               </label>
               <select
                 value={gpu}
                 onChange={(e) => { setGpu(e.target.value); setResult(null) }}
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 h-12 text-white outline-none focus:border-[#ff007f] transition-all appearance-none cursor-pointer"
               >
-                <option value="" className="bg-[#0a0a0f]">Selecciona...</option>
+                <option value="" className="bg-[#0a0a0f]">Select...</option>
                 {gpuList.map((g) => (
                   <option key={g.value} value={g.value} className="bg-[#0a0a0f]">{g.label}</option>
                 ))}
@@ -133,11 +134,11 @@ export default function Calculadora() {
             {loading ? (
               <>
                 <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                Analizando...
+                Analyzing...
               </>
             ) : (
               <>
-                <Gauge size={22} /> Analizar mi PC
+                <Gauge size={22} /> Analyze My PC
               </>
             )}
           </button>
@@ -153,7 +154,7 @@ export default function Calculadora() {
                 transition={{ duration: 2, ease: "easeInOut" }}
               />
             </div>
-            <p className="text-white/30 text-sm text-center mt-3">Calculando rendimiento...</p>
+            <p className="text-white/30 text-sm text-center mt-3">Calculating performance...</p>
           </div>
         )}
 
@@ -183,14 +184,14 @@ export default function Calculadora() {
 
             <div className="glass rounded-2xl p-6">
               <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
-                <ShoppingCart size={18} className="text-[#ff007f]" /> Mejoras Recomendadas
+                <ShoppingCart size={18} className="text-[#ff007f]" /> Recommended Upgrades
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
-                  { name: "RTX 4070 Super", price: "~650€", tag: "GPU" },
-                  { name: "Ryzen 7 7800X3D", price: "~450€", tag: "CPU" },
-                  { name: "32 GB DDR5", price: "~100€", tag: "RAM" },
-                  { name: "SSD NVMe 1TB", price: "~90€", tag: "Almacenamiento" },
+                  { name: "RTX 4070 Super", price: "~$700", tag: "GPU" },
+                  { name: "Ryzen 7 7800X3D", price: "~$480", tag: "CPU" },
+                  { name: "32 GB DDR5", price: "~$110", tag: "RAM" },
+                  { name: "SSD NVMe 1TB", price: "~$100", tag: "Storage" },
                 ].map((item) => (
                   <div
                     key={item.name}
@@ -211,7 +212,7 @@ export default function Calculadora() {
                 href="/"
                 className="inline-flex items-center gap-2 text-white/40 hover:text-white/70 text-sm transition"
               >
-                Volver al inicio
+                Back to home
               </Link>
             </div>
           </motion.div>

@@ -9,10 +9,10 @@ import { createPost } from "@/app/actions/forum"
 import { useToast } from "@/components/Toast"
 
 const CATEGORIES = [
-  { value: "general", label: "Discusión General" },
+  { value: "general", label: "General Discussion" },
   { value: "roleplay", label: "Roleplay" },
-  { value: "coches", label: "Mecánica / Coches" },
-  { value: "salseo", label: "Salseo / Noticias" },
+  { value: "coches", label: "Mechanics / Cars" },
+  { value: "salseo", label: "News / Rumors" },
 ]
 
 export default function NewPostPage() {
@@ -25,12 +25,12 @@ export default function NewPostPage() {
     return (
       <div className="min-h-screen pt-24 px-4 pb-20 flex items-center justify-center">
         <div className="glass rounded-2xl p-10 text-center max-w-md">
-          <p className="text-white/60 mb-4">Debes iniciar sesión para publicar</p>
+          <p className="text-white/60 mb-4">You must log in to post</p>
           <button
             onClick={() => signIn("discord")}
             className="inline-flex items-center gap-2 px-6 h-11 rounded-full bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-white font-semibold text-sm"
           >
-            Entrar con Discord
+            Login with Discord
           </button>
         </div>
       </div>
@@ -45,10 +45,10 @@ export default function NewPostPage() {
     setSubmitting(false)
 
     if (res.ok && res.id) {
-      toast("success", "Publicación creada")
+      toast("success", "Post created")
       router.push(`/foro/${res.id}`)
     } else {
-      toast("error", res.error ?? "Error al publicar")
+      toast("error", res.error ?? "Error creating post")
     }
   }
 
@@ -59,16 +59,16 @@ export default function NewPostPage() {
           href="/foro"
           className="inline-flex items-center gap-2 text-white/40 hover:text-white/70 text-sm mb-6 transition"
         >
-          <ArrowLeft size={16} /> Volver al foro
+          <ArrowLeft size={16} /> Back to forum
         </Link>
 
         <h1 className="text-2xl md:text-3xl font-black gradient-text mb-8">
-          Nueva Publicación
+          New Post
         </h1>
 
         <form onSubmit={handleSubmit} className="glass rounded-2xl p-6 space-y-5">
           <div>
-            <label className="text-white/60 text-sm font-medium mb-1.5 block">Categoría</label>
+            <label className="text-white/60 text-sm font-medium mb-1.5 block">Category</label>
             <select
               name="category"
               defaultValue="general"
@@ -83,22 +83,22 @@ export default function NewPostPage() {
           </div>
 
           <div>
-            <label className="text-white/60 text-sm font-medium mb-1.5 block">Título</label>
+            <label className="text-white/60 text-sm font-medium mb-1.5 block">Title</label>
             <input
               name="title"
               required
               maxLength={120}
-              placeholder="Ej: ¿El jetpack existe en GTA VI?"
+              placeholder="e.g. Does the jetpack exist in GTA VI?"
               className="w-full bg-white/5 border border-white/10 rounded-xl px-4 h-12 text-white placeholder:text-white/20 outline-none focus:border-[#ff007f] transition-all"
             />
           </div>
 
           <div>
-            <label className="text-white/60 text-sm font-medium mb-1.5 block">Contenido</label>
+            <label className="text-white/60 text-sm font-medium mb-1.5 block">Content</label>
             <textarea
               name="content"
               rows={6}
-              placeholder="Escribe tu mensaje..."
+              placeholder="Write your message..."
               className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 outline-none focus:border-[#ff007f] transition-all resize-y"
             />
           </div>
@@ -113,7 +113,7 @@ export default function NewPostPage() {
             ) : (
               <Send size={20} />
             )}
-            {submitting ? "Publicando..." : "Publicar"}
+            {submitting ? "Publishing..." : "Publish"}
           </button>
         </form>
       </div>

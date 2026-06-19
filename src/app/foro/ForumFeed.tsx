@@ -17,21 +17,21 @@ type Post = {
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
-  general: "Discusión General",
+  general: "General Discussion",
   roleplay: "Roleplay",
-  coches: "Mecánica / Coches",
-  salseo: "Salseo / Noticias",
+  coches: "Mechanics / Cars",
+  salseo: "News / Rumors",
 }
 
 function timeAgo(date: string) {
   const diff = Date.now() - new Date(date).getTime()
   const mins = Math.floor(diff / 60000)
-  if (mins < 1) return "ahora"
-  if (mins < 60) return `hace ${mins}m`
+  if (mins < 1) return "now"
+  if (mins < 60) return `${mins}m ago`
   const hrs = Math.floor(mins / 60)
-  if (hrs < 24) return `hace ${hrs}h`
+  if (hrs < 24) return `${hrs}h ago`
   const days = Math.floor(hrs / 24)
-  if (days < 30) return `hace ${days}d`
+  if (days < 30) return `${days}d ago`
   return new Date(date).toLocaleDateString()
 }
 
@@ -42,7 +42,7 @@ export default function ForumFeed({ posts: initial }: { posts: Post[] }) {
   const [voting, setVoting] = useState<Set<number>>(new Set())
 
   const handleVote = async (postId: number) => {
-    if (!session) return toast("error", "Debes iniciar sesión para votar")
+    if (!session) return toast("error", "You must log in to vote")
     if (voting.has(postId)) return
     setVoting((prev) => new Set(prev).add(postId))
 
@@ -65,12 +65,12 @@ export default function ForumFeed({ posts: initial }: { posts: Post[] }) {
   if (posts.length === 0) {
     return (
       <div className="glass rounded-2xl p-12 text-center">
-        <p className="text-white/30 text-lg">No hay publicaciones aún.</p>
+        <p className="text-white/30 text-lg">No posts yet.</p>
         <a
           href="/foro/nuevo"
           className="inline-flex items-center gap-2 mt-4 text-[#ff007f] hover:underline text-sm"
         >
-          Sé el primero en crear una
+          Be the first to create one
         </a>
       </div>
     )
@@ -84,7 +84,6 @@ export default function ForumFeed({ posts: initial }: { posts: Post[] }) {
           href={`/foro/${post.id}`}
           className="glass rounded-2xl p-5 flex gap-4 hover:border-[#ff007f]/30 transition-all group"
         >
-          {/* Vote column */}
           <div className="flex flex-col items-center gap-0.5 min-w-[48px]">
             <button
               onClick={(e) => {
@@ -99,7 +98,6 @@ export default function ForumFeed({ posts: initial }: { posts: Post[] }) {
             <span className="text-sm font-bold text-white/70">{post.upvotes}</span>
           </div>
 
-          {/* Content */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-[10px] uppercase tracking-widest text-[#ff007f]/60 font-semibold">
@@ -110,7 +108,7 @@ export default function ForumFeed({ posts: initial }: { posts: Post[] }) {
               {post.title}
             </h2>
             <p className="text-white/40 text-sm mt-1 line-clamp-2">
-              {post.content || "Sin contenido"}
+              {post.content || "No content"}
             </p>
             <div className="flex items-center gap-4 mt-3 text-xs text-white/30">
               <span className="flex items-center gap-1">
