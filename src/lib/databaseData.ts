@@ -25,6 +25,7 @@ export interface DatabaseEntry {
 }
 
 export const DATABASE_ENTRIES: DatabaseEntry[] = [
+  // CHARACTERS
   {
     id: "char-1",
     slug: "lucia",
@@ -43,6 +44,26 @@ export const DATABASE_ENTRIES: DatabaseEntry[] = [
     confirmation_status: "confirmed",
     date_added: "2023-12-05",
   },
+  {
+    id: "char-3",
+    slug: "stefanie",
+    name: "Stefanie",
+    category: "characters",
+    description: "Seen in the official Trailer 1, a prison counselor or probation officer talking to Lucia in the opening scene.",
+    confirmation_status: "confirmed",
+    date_added: "2023-12-06",
+  },
+  {
+    id: "char-4",
+    slug: "dre",
+    name: "Dre",
+    category: "characters",
+    description: "Mentioned and seen during the 2022 leaks. Appears to be an associate or friend of Jason and Lucia.",
+    confirmation_status: "leaked",
+    date_added: "2023-12-10",
+  },
+
+  // VEHICLES
   {
     id: "veh-1",
     slug: "bravado-banshee-vi",
@@ -66,6 +87,52 @@ export const DATABASE_ENTRIES: DatabaseEntry[] = [
     date_added: "2024-01-15",
   },
   {
+    id: "veh-3",
+    slug: "vapid-dominator-gtx",
+    name: "Vapid Dominator GTX",
+    category: "vehicles",
+    manufacturer: "Vapid",
+    vehicle_class: "Muscle",
+    description: "A modern muscle car seen multiple times during highway shots in the trailer. Features aggressive styling similar to a modern Mustang.",
+    confirmation_status: "confirmed",
+    date_added: "2023-12-07",
+  },
+  {
+    id: "veh-4",
+    slug: "grotti-cheetah-classic",
+    name: "Grotti Cheetah Classic",
+    category: "vehicles",
+    manufacturer: "Grotti",
+    vehicle_class: "Sports Classics",
+    description: "A staple of the 3D universe Vice City, this 80s Ferrari Testarossa lookalike makes a glorious return passing by Ocean Drive.",
+    confirmation_status: "confirmed",
+    date_added: "2023-12-08",
+  },
+  {
+    id: "veh-5",
+    slug: "maibatsu-sanchez",
+    name: "Maibatsu Sanchez",
+    category: "vehicles",
+    manufacturer: "Maibatsu",
+    vehicle_class: "Motorcycles",
+    description: "The classic dirt bike returns. Heavily featured in the Thrillbilly Mud Club sequences.",
+    confirmation_status: "confirmed",
+    date_added: "2023-12-09",
+  },
+  {
+    id: "veh-6",
+    slug: "pfister-comet-retro",
+    name: "Pfister Comet Retro Custom",
+    category: "vehicles",
+    manufacturer: "Pfister",
+    vehicle_class: "Sports",
+    description: "Spotted in the 2022 leaks, parked outside a motel. The wide-body Porsche 911 equivalent.",
+    confirmation_status: "leaked",
+    date_added: "2023-12-11",
+  },
+
+  // WEAPONS
+  {
     id: "weap-1",
     slug: "compact-rifle",
     name: "Compact Rifle",
@@ -87,6 +154,41 @@ export const DATABASE_ENTRIES: DatabaseEntry[] = [
     confirmation_status: "confirmed",
     date_added: "2023-12-05",
   },
+  {
+    id: "weap-3",
+    slug: "heavy-pistol",
+    name: "Heavy Pistol",
+    category: "weapons",
+    weapon_type: "Handgun",
+    estimated_damage: "Medium",
+    description: "Jason is seen holding what appears to be a 1911-style Heavy Pistol during the convenience store robbery in Trailer 1.",
+    confirmation_status: "confirmed",
+    date_added: "2023-12-06",
+  },
+  {
+    id: "weap-4",
+    slug: "baseball-bat",
+    name: "Baseball Bat",
+    category: "weapons",
+    weapon_type: "Melee",
+    estimated_damage: "Low",
+    description: "A classic melee weapon. Seen in the leaks during an animation test for stealth takedowns.",
+    confirmation_status: "leaked",
+    date_added: "2023-12-12",
+  },
+  {
+    id: "weap-5",
+    slug: "molotov-cocktail",
+    name: "Molotov Cocktail",
+    category: "weapons",
+    weapon_type: "Throwable",
+    estimated_damage: "Area of Effect (Fire)",
+    description: "Confirmed via the leaks menu wheel. Standard fire-based throwable weapon.",
+    confirmation_status: "leaked",
+    date_added: "2023-12-14",
+  },
+
+  // LOCATIONS
   {
     id: "loc-1",
     slug: "vice-beach",
@@ -119,6 +221,39 @@ export const DATABASE_ENTRIES: DatabaseEntry[] = [
     description: "A muddy, alligator-infested swamp region featured in the trailer, likely inspired by the real-world Florida Everglades.",
     confirmation_status: "confirmed",
     date_added: "2023-12-05",
+  },
+  {
+    id: "loc-4",
+    slug: "gator-keys",
+    name: "Gator Keys",
+    category: "locations",
+    district: "Leonida South",
+    zone_type: "Islands / Highway",
+    description: "An archipelago connected by long highway bridges, heavily inspired by the Florida Keys. Seen prominently in Trailer 1.",
+    confirmation_status: "confirmed",
+    date_added: "2023-12-06",
+  },
+  {
+    id: "loc-5",
+    slug: "ocean-drive",
+    name: "Ocean Drive",
+    category: "locations",
+    district: "Vice City",
+    zone_type: "Nightlife",
+    description: "The neon-drenched avenue running parallel to Vice Beach. Packed with lowriders, sports cars, and clubs.",
+    confirmation_status: "confirmed",
+    date_added: "2023-12-07",
+  },
+  {
+    id: "loc-6",
+    slug: "wynwood",
+    name: "Wynwood Arts District",
+    category: "locations",
+    district: "Vice City",
+    zone_type: "Commercial",
+    description: "A neighborhood covered in colorful graffiti and street art, directly inspired by Miami's Wynwood Walls. Seen briefly in the trailer.",
+    confirmation_status: "confirmed",
+    date_added: "2023-12-08",
   }
 ];
 
