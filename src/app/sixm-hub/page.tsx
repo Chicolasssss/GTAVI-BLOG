@@ -103,14 +103,12 @@ export default function SixMHub() {
               Secure your spot in the official Leonida Hub server registry. When the multiplayer clients launch, your server will be featured on day one.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <input 
-                type="text" 
-                placeholder="Enter your FiveM Server Name..." 
-                className="bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white outline-none focus:border-[#ff007f] focus:shadow-[0_0_20px_rgba(255,0,127,0.2)] w-full transition-all"
-              />
-              <button className="bg-white text-black font-bold px-8 py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#00ffff] transition-colors shrink-0">
-                Claim Name <ArrowRight size={18} />
-              </button>
+              <a 
+                href="/servidores"
+                className="bg-white text-black font-bold px-8 py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#00ffff] transition-colors w-full sm:w-auto"
+              >
+                Go to the Official Server Registry <ArrowRight size={18} />
+              </a>
             </div>
             <p className="text-white/20 text-xs mt-4 font-mono">
               <Zap size={12} className="inline mr-1 text-[#ff007f]" /> 
