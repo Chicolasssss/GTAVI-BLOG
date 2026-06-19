@@ -2,12 +2,13 @@
 
 import Link from "next/link"
 import { useSession, signIn, signOut } from "next-auth/react"
-import { Menu, X, Map, Cpu, Server, LogOut, LogIn } from "lucide-react"
+import { Menu, X, Map, Cpu, Server, MessageSquare, LogOut, LogIn } from "lucide-react"
+import Image from "next/image"
 import { useState } from "react"
 
 const navLinks = [
-  { href: "/bottleneck", label: "Test PC", icon: Cpu },
-  { href: "/map", label: "Mapa", icon: Map },
+  { href: "/foro", label: "Foro", icon: MessageSquare },
+  { href: "/calculadora", label: "Test PC", icon: Cpu },
   { href: "/servers", label: "Servidores", icon: Server },
 ]
 
@@ -19,9 +20,7 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 glass">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 font-bold text-lg">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-xl">
-            VI
-          </span>
+          <Image src="/logo.png" alt="VI" width={32} height={32} className="w-8 h-8" />
           <span className="tracking-widest text-white/90">LEONIDA HUB</span>
         </Link>
 

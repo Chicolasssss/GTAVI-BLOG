@@ -14,7 +14,10 @@ export async function reserveName(name: string) {
     return { ok: false, error: "El nombre debe tener entre 2 y 32 caracteres" }
   }
 
-  const { error } = await supabaseAdmin.from("reserved_names").insert({
+  const db = supabaseAdmin
+  if (!db) return { ok: false, error: "Base de datos no configurada" }
+
+  const { error } = await db.from("reserved_names").insert({
     discord_id: session.user.id,
     discord_email: session.user.email,
     requested_name: clean,
