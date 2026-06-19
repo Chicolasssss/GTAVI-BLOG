@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
-  Cpu, Monitor, Gauge, AlertTriangle, CheckCircle, ShoppingCart, MemoryStick, ChevronDown, Search
+  Cpu, Monitor, Gauge, AlertTriangle, CheckCircle, ShoppingCart, MemoryStick, ChevronDown, Search, ShieldCheck
 } from "lucide-react"
 import Link from "next/link"
 
@@ -344,29 +344,23 @@ export default function BottleneckCalculator() {
               )}
             </div>
 
-            <div className="bg-gray-900/80 rounded-2xl p-6 border border-[#ff007f]/30">
-              <h3 className="text-[#00ffff] font-bold mb-4 flex items-center gap-2 font-mono uppercase tracking-wide">
-                <ShoppingCart size={18} className="text-[#ff007f]" /> Hardware Upgrades
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {[
-                  { name: "RTX 4070 Super", price: "~$600", tag: "GPU" },
-                  { name: "Ryzen 7 7800X3D", price: "~$350", tag: "CPU" },
-                  { name: "32 GB DDR5 6000MHz", price: "~$100", tag: "RAM" },
-                  { name: "SSD NVMe Gen4 2TB", price: "~$120", tag: "Storage" },
-                ].map((item) => (
-                  <div
-                    key={item.name}
-                    className="bg-black/50 border border-[#00ffff]/10 rounded-xl p-4 flex items-center justify-between hover:border-[#00ffff]/50 transition-colors group"
-                  >
-                    <div>
-                      <p className="text-white text-sm font-bold group-hover:text-[#00ffff] transition-colors">{item.name}</p>
-                      <span className="text-[#ff007f] font-mono text-xs">{item.price}</span>
-                    </div>
-                    <span className="text-[10px] uppercase tracking-widest text-[#00ffff]/50 font-mono">{item.tag}</span>
-                  </div>
-                ))}
+            <div className="bg-gradient-to-r from-[#121216] to-[#1a1a24] rounded-2xl p-6 md:p-8 border border-[#00ffff]/20 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#00ffff]/10 blur-3xl pointer-events-none" />
+              <div className="relative z-10 max-w-xl text-center md:text-left">
+                <h3 className="text-[#00ffff] font-black text-xl mb-2 flex items-center justify-center md:justify-start gap-2 uppercase tracking-wide">
+                  <ShieldCheck size={20} className="text-[#ff007f]" /> Prepare your arsenal
+                </h3>
+                <p className="text-white/60 text-sm leading-relaxed">
+                  Struggling with the RAGE Engine requirements? Discover our official recommendations for the best consoles, 4K displays, and roleplay peripherals to conquer Vice City.
+                </p>
               </div>
+              <Link 
+                href="/gear"
+                className="relative z-10 shrink-0 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#00ffff]/50 text-white font-bold px-8 py-4 rounded-xl flex items-center gap-3 transition-all group"
+              >
+                <ShoppingCart size={18} className="text-[#00ffff] group-hover:scale-110 transition-transform" /> 
+                View Setup & Gear
+              </Link>
             </div>
 
             <div className="text-center mt-6">
