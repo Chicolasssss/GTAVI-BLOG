@@ -15,8 +15,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/sixm-hub',
     '/radar',
     '/mapa',
-    '/calculadora',
-    '/test-pc'
+    '/test-pc',
+    '/servers',
+    '/gear',
+    '/privacy',
+    '/terms'
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
