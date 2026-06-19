@@ -11,8 +11,7 @@ import Link from "next/link"
 import { useCountdown } from "@/hooks/useCountdown"
 import { useToast } from "@/components/Toast"
 import { reserveName } from "@/app/actions/reserve"
-import { ShoppingCart } from "lucide-react"
-import { AFFILIATE_LINK } from "@/constants/links"
+import ReservaButton from "@/components/ReservaButton"
 
 export default function Home() {
   const { data: session, status } = useSession()
@@ -97,8 +96,8 @@ function HeroSection({
         >
           <p className="text-white/50 text-sm font-medium tracking-wide">
             {isPreSale
-              ? "La Preventa de Leonida inicia en:"
-              : "Lanzamiento oficial de Leonida:"}
+              ? "Leonida Pre-Sale starts in:"
+              : "Official Leonida Launch:"}
           </p>
         </motion.div>
 
@@ -135,19 +134,12 @@ function HeroSection({
             className="mt-6 flex flex-wrap justify-center gap-3"
           >
             <button
-              onClick={() => alert("🔔 Te avisaremos cuando abra la preventa")}
+              onClick={() => alert("🔔 We'll notify you when the pre-sale opens!")}
               className="inline-flex items-center gap-2 px-6 h-11 rounded-full border border-[#ff007f]/40 text-[#ff007f] text-sm font-semibold hover:bg-[#ff007f]/10 transition-all"
             >
-              <Sparkles size={16} /> Avisarme al abrir la preventa
+              <Sparkles size={16} /> Notify me when pre-sale opens
             </button>
-            <a
-              href={AFFILIATE_LINK}
-              target="_blank"
-              rel="nofollow sponsored noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 h-11 rounded-full bg-gradient-to-r from-[#ff007f] to-[#00ffff] text-white text-sm font-semibold hover:shadow-lg hover:shadow-[#ff007f]/30 transition-all"
-            >
-              <ShoppingCart size={16} /> Pre-ordenar en Instant Gaming
-            </a>
+            <ReservaButton platform="ps5" />
           </motion.div>
         )}
 
