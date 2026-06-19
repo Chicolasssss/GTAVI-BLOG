@@ -2,14 +2,15 @@
 
 import Link from "next/link"
 import { useSession, signIn, signOut } from "next-auth/react"
-import { Menu, X, Map, Cpu, Server, MessageSquare, LogOut, LogIn } from "lucide-react"
+import { Menu, X, Map, Cpu, Server, MessageSquare, MapPin, Shield, LogOut, LogIn } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 
 const navLinks = [
   { href: "/foro", label: "Foro", icon: MessageSquare },
+  { href: "/mapa", label: "Mapa", icon: MapPin },
+  { href: "/servidores", label: "Servidores", icon: Shield },
   { href: "/calculadora", label: "Test PC", icon: Cpu },
-  { href: "/servers", label: "Servidores", icon: Server },
 ]
 
 export default function Navbar() {
